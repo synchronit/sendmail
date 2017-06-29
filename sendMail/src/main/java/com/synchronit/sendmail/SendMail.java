@@ -102,7 +102,7 @@ public class SendMail {
 			message.setFrom(new InternetAddress(senderEmail));
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse("fguigou@gmail.com"));
-			message.setSubject("Testing Subject");
+			message.setSubject("Contact Request (via website)");
 			message.setText("Message from "+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
 	
 			Transport.send(message);
@@ -144,7 +144,7 @@ public class SendMail {
 		message.setFrom(new InternetAddress(senderEmail));
 		message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse("fguigou@gmail.com"));
-		message.setSubject("Testing Subject");
+		message.setSubject("Contact Request (via website)");
 		message.setText("Message from "+senderName+": "+senderMessage+" (sent via SSL ... TLS has failed because: "+error+" )");
 
 		Transport.send(message);
