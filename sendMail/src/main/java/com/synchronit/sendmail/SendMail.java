@@ -75,7 +75,7 @@ public class SendMail {
 		return result;
 	}
 	
-	private String sendMailTLS (String senderMessage, String senderName, String senderEmail) throws Exception
+	private String sendMailTLS (String senderMessage, String senderName, String senderEmail) 
 	{
 		
 		String result;
@@ -89,23 +89,30 @@ public class SendMail {
 		props.put("mail.smtp.host", "mail.synchronit.com");
 		props.put("mail.smtp.port", "587");
 
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		  });
+		try
+		{			
+			Session session = Session.getInstance(props,
+			  new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			  });
+	
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(senderEmail));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse("fguigou@gmail.com"));
+			message.setSubject("Testing Subject");
+			message.setText("Message from "+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
+	
+			Transport.send(message);
 
-		Message message = new MimeMessage(session);
-		message.setFrom(new InternetAddress(senderEmail));
-		message.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse("fguigou@gmail.com"));
-		message.setSubject("Testing Subject");
-		message.setText("Message from "+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
-
-		Transport.send(message);
-
-		result = "OK";
+			result = "OK";
+		}
+		catch (Exception e)
+		{
+			result = e.toString();
+		}
 
 		return result;
 	}
