@@ -101,11 +101,11 @@ public class SendMail {
 			  });
 	
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(senderEmail));
+			message.setFrom(new InternetAddress("contact@synchronit.com"));  // senderEmail
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse("fguigou@gmail.com"));
 			message.setSubject("Contact Request (via website)");
-			message.setText("Message from "+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
+			message.setText("Message from ("+senderEmail+")"+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
 	
 			Transport.send(message);
 
