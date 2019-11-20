@@ -86,7 +86,7 @@ public class SendMail {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "209.236.112.62");
+		props.put("mail.smtp.host", "mail.synchronit.com"); // 170.249.249.127   "209.236.112.62");
 		props.put("mail.smtp.port", "587");
 
 		try
@@ -123,7 +123,7 @@ public class SendMail {
 		String result;
 
 		final String username = "contact@synchronit.com";
-		final String password = "Muchachit0123";
+		final String password = filePassword;
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "mail.synchronit.com");
