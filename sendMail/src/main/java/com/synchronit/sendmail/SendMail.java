@@ -29,6 +29,8 @@ public class SendMail {
 	private static SendMail instance = null;
 	
 	private static String filePassword;
+	
+	private static final String mailServer = "170.249.249.127";
 
 	public static synchronized SendMail getInstance() {
 	    if (instance == null) {
@@ -86,7 +88,7 @@ public class SendMail {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "mail.synchronit.com"); // 170.249.249.127   "209.236.112.62");
+		props.put("mail.smtp.host", mailServer); //"mail.synchronit.com"); // 170.249.249.127   "209.236.112.62");
 		props.put("mail.smtp.port", "587");
 
 		try
@@ -126,7 +128,7 @@ public class SendMail {
 		final String password = filePassword;
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "mail.synchronit.com");
+		props.put("mail.smtp.host", mailServer); // "mail.synchronit.com");
 		props.put("mail.smtp.socketFactory.port", "465");
 		props.put("mail.smtp.socketFactory.class",
 				"javax.net.ssl.SSLSocketFactory");
