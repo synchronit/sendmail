@@ -12,7 +12,8 @@
 		String mail = request.getParameter("mail");
 
 		SendMail sendMail = SendMail.getInstance(); 
-		String result = sendMail.send(text, name, mail);
+		String result = "hola Fer!";
+		// String result = sendMail.send(text, name, mail);
 	%>
 
 	  <p><%= result %></p>
