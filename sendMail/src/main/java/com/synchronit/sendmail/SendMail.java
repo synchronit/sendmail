@@ -30,8 +30,8 @@ public class SendMail {
 	
 	private static String filePassword;
 	
-	private static final String MAIL_SERVER = "smtp.gmail.com";
-	private static final String USER_NAME   = "fguigou@gmail.com";  // contact@synchronit.com
+	private static final String MAIL_SERVER = "mail.synchronit.com";
+	private static final String USER_NAME   = "contact@synchronit.com";  // contact@synchronit.com
 
 	public static synchronized SendMail getInstance() {
 	    if (instance == null) {
