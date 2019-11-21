@@ -30,7 +30,8 @@ public class SendMail {
 	
 	private static String filePassword;
 	
-	private static final String mailServer = "170.249.249.127";
+	private static final String MAIL_SERVER = "smtp.gmail.com";
+	private static final String USER_NAME   = "fguigou@gmail.com";  // contact@synchronit.com
 
 	public static synchronized SendMail getInstance() {
 	    if (instance == null) {
@@ -82,13 +83,13 @@ public class SendMail {
 		
 		String result;
 
-		final String username = "contact@synchronit.com";
+		final String username = USER_NAME;
 		final String password = filePassword;
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", mailServer); //"mail.synchronit.com"); // 170.249.249.127   "209.236.112.62");
+		props.put("mail.smtp.host", MAIL_SERVER); //"mail.synchronit.com"); // 170.249.249.127   "209.236.112.62");
 		props.put("mail.smtp.port", "587");
 
 		try
@@ -101,9 +102,9 @@ public class SendMail {
 			  });
 	
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("contact@synchronit.com"));  // senderEmail
+			message.setFrom(new InternetAddress(USER_NAME));  // senderEmail // "contact@synchronit.com"
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("fguigou@gmail.com"));
+				InternetAddress.parse("fguigou@synchronit.com"));
 			message.setSubject("Contact Request (via website)");
 			message.setText("Message from ("+senderEmail+")"+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
 	
@@ -124,11 +125,11 @@ public class SendMail {
 		
 		String result;
 
-		final String username = "contact@synchronit.com";
+		final String username = USER_NAME;
 		final String password = filePassword;
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", mailServer); // "mail.synchronit.com");
+		props.put("mail.smtp.host", MAIL_SERVER); // "mail.synchronit.com");
 		props.put("mail.smtp.socketFactory.port", "465");
 		props.put("mail.smtp.socketFactory.class",
 				"javax.net.ssl.SSLSocketFactory");
@@ -145,7 +146,7 @@ public class SendMail {
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(senderEmail));
 		message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("fguigou@gmail.com"));
+				InternetAddress.parse("fguigou@synchronit.com"));
 		message.setSubject("Contact Request (via website)");
 		message.setText("Message from "+senderName+": "+senderMessage+" (sent via SSL ... TLS has failed because: "+error+" )");
 
