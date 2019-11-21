@@ -30,9 +30,16 @@ public class SendMail {
 	
 	private static String filePassword;
 	
-	private static final String MAIL_SERVER = "mail.synchronit.com";
-	private static final String USER_NAME   = "contact@synchronit.com";  // contact@synchronit.com
+//	private static final String MAIL_SERVER = "smtp.gmail.com"; 
+//	private static final String USER_NAME   = "fguigou@gmail.com"; 
 
+	private static final String MAIL_SERVER = "mail.synchronit.com"; 	// 170.249.249.127   "209.236.112.62"
+	private static final String USER_NAME   = "contact@synchronit.com"; 
+
+	private static final String MAIL_TO = "fguigou@gmail.com";
+	private static final String TLS_PORT = "587";
+	private static final String SMTP_PORT = "465";
+	
 	public static synchronized SendMail getInstance() {
 	    if (instance == null) {
 	        instance = new SendMail();
@@ -71,9 +78,10 @@ public class SendMail {
 			System.out.println("Message: "+senderMessage);
 			System.out.println("***ERROR*** ERROR DETAILS (LOG) ***ERROR***");
 
-			result = e.toString()+" and previous error was: "+firstError;
+			result = e.toString()+"\n and previous error was: "+firstError;
 			System.out.println(result);
 			System.out.println("***ERROR*** END OF ERROR LOG ***ERROR***");
+			System.out.println("AND THE PASSWORD USED WAS >>"+filePassword+"<<");
 		}
 		return result;
 	}
@@ -89,8 +97,9 @@ public class SendMail {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", MAIL_SERVER); //"mail.synchronit.com"); // 170.249.249.127   "209.236.112.62");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.host", MAIL_SERVER); 
+		props.put("mail.smtp.port", TLS_PORT);
+		props.put("mail.smtp.ssl.trust", MAIL_SERVER); 
 
 		try
 		{			
@@ -102,15 +111,16 @@ public class SendMail {
 			  });
 	
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(USER_NAME));  // senderEmail // "contact@synchronit.com"
+			message.setFrom(new InternetAddress(senderEmail)); 
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("fguigou@synchronit.com"));
+				InternetAddress.parse(MAIL_TO));
 			message.setSubject("Contact Request (via website)");
-			message.setText("Message from ("+senderEmail+")"+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
+			message.setText("Message from "+senderName+": "+senderMessage+" (sent via TLS on first attempt ... OK)");
 	
 			Transport.send(message);
 
 			result = "OK";
+			System.out.println("Message sent. From: "+senderName+" Email: "+senderEmail+" Text: "+senderMessage);
 		}
 		catch (Exception e)
 		{
@@ -129,12 +139,13 @@ public class SendMail {
 		final String password = filePassword;
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", MAIL_SERVER); // "mail.synchronit.com");
+		props.put("mail.smtp.host", MAIL_SERVER); 
 		props.put("mail.smtp.socketFactory.port", "465");
 		props.put("mail.smtp.socketFactory.class",
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.port", SMTP_PORT);
+		props.put("mail.smtp.ssl.trust", MAIL_SERVER );
 
 		Session session = Session.getInstance(props,
 				new javax.mail.Authenticator() {
@@ -146,13 +157,14 @@ public class SendMail {
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(senderEmail));
 		message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("fguigou@synchronit.com"));
+				InternetAddress.parse(MAIL_TO));
 		message.setSubject("Contact Request (via website)");
 		message.setText("Message from "+senderName+": "+senderMessage+" (sent via SSL ... TLS has failed because: "+error+" )");
 
 		Transport.send(message);
 
 		result = "OK";
+		System.out.println("Message sent. From: "+senderName+" Email: "+senderEmail+" Text: "+senderMessage);
 
 		return result;
 	}
