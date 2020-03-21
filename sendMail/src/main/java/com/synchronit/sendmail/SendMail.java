@@ -33,7 +33,7 @@ public class SendMail {
 //	private static final String MAIL_SERVER = "smtp.gmail.com"; 
 //	private static final String USER_NAME   = "fguigou@gmail.com"; 
 
-	private static final String MAIL_SERVER = "170.249.249.127";  //"mail.synchronit.com"; 	// 170.249.249.127   "209.236.112.62"
+	private static final String MAIL_SERVER = "mail.synchronit.com"; 	// 170.249.249.127   "209.236.112.62"
 	private static final String USER_NAME   = "contact@synchronit.com"; 
 
 	private static final String MAIL_TO = "fguigou@gmail.com";
