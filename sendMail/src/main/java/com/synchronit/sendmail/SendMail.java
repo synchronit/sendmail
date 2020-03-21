@@ -84,14 +84,14 @@ public class SendMail {
 			System.out.println("AND THE PASSWORD USED WAS >>"+filePassword+"<<");
 		}
 		return result;
-	}
+	} 
 	
 	private String sendMailTLS (String senderMessage, String senderName, String senderEmail) 
 	{
 		 
 		String result;
 
-		final String username = USER_NAME;
+		final String username = USER_NAME;  
 		final String password = filePassword;
 
 		Properties props = new Properties();
