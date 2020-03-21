@@ -24,7 +24,7 @@ import javax.mail.*;
 
 public class SendMail {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;  
 
 	private static SendMail instance = null;
 	
