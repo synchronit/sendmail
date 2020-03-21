@@ -88,7 +88,7 @@ public class SendMail {
 	
 	private String sendMailTLS (String senderMessage, String senderName, String senderEmail) 
 	{
-		
+		 
 		String result;
 
 		final String username = USER_NAME;
